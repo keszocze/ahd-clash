@@ -87,6 +87,7 @@ library
   exposed-modules:
     AHD
     AHD.Introduction
+    AHD.Labs.Lab1
     AHD.Util
     Example.Project
   default-language: Haskell2010
@@ -127,6 +128,8 @@ test-suite test-library
   main-is: unittests.hs
   other-modules:
     Tests.Example.Project
+    Tests.AHD.Util
+    Tests.AHD.Labs.Lab1
   build-depends:
     lab-clash,
     QuickCheck,
@@ -134,4 +137,5 @@ test-suite test-library
     hedgehog,
     tasty >= 1.2 && < 1.6,
     tasty-hedgehog,
+    tasty-hunit,
     tasty-th

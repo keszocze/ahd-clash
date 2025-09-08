@@ -1,0 +1,47 @@
+module Tests.AHD.Util (tt2Helper, tt3Helper, main, utilTests) where
+
+import Prelude
+
+import Test.Tasty
+import Test.Tasty.HUnit
+import Test.Tasty.TH
+
+import Clash.Prelude
+
+
+
+
+import AHD.Util
+
+tt2Helper f expected = do
+  let vals = truthTable2 f
+  Prelude.length vals @?= 4
+  vals @?= expected
+
+tt3Helper f expected = do
+  let vals = truthTable3 f
+  Prelude.length vals @=? 8
+  vals @=? expected
+
+case_tt2And = tt2Helper(.&.) [0,0,0,1]
+case_tt2Xor = tt2Helper xor [0,1,1,0]
+case_tt2Or = tt2Helper (.|.) [0,1,1,1]
+
+
+
+fullAdder :: Bit -> Bit -> Bit -> (Bit, Bit)
+fullAdder a b cIn = (cOut, s)
+  where
+    s = a `xor` b `xor` cIn
+    cOut = (cIn .&. (a `xor` b)) .|. (a .&. b)
+
+
+case_tt3FullAdder = tt3Helper fullAdder [(0,0),(0,1),(0,1),(1,0),(0,1),(1,0),(1,0),(1,1)]
+
+case_tt3SomeFun = tt3Helper (\a b c -> (a `xor` b) .|. c) [0,1,1,1,1,1,0,1]
+
+utilTests :: TestTree
+utilTests = $(testGroupGenerator)
+
+main :: IO ()
+main = defaultMain utilTests
