@@ -44,3 +44,5 @@ cabal.config
 /systemverilog
 .vscode
 bin/
+stack.yaml.lock
+docs/

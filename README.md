@@ -2,7 +2,13 @@
 # Simple Starter Project
 This starter project contains the scaffolding needed to integrate Clash with the Cabal and Stack build systems. It allows you to use dependencies from [Hackage](https://hackage.haskell.org/) easily.
 
+
+
+# **This is the `README.md` from the Clash template**
 <!-- omit in toc -->
+
+This content is preserved as it describes the setup of a Chisel project very well. Please note that changes have been made to the template that
+
 # Table of Contents
 - [Getting this project](#getting-this-project)
 - [Building and testing this project](#building-and-testing-this-project)
