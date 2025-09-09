@@ -11,20 +11,6 @@ import Test.Tasty.HUnit
 import Test.Tasty.TH
 
 
-
-
-
-halfAdder :: Bit -> Bit -> (Bit, Bit)
-halfAdder a b = (cOut, s)
-  where
-    cOut = a .&. b
-    s = a `xor` b
-
-topEntity :: Bit -> Bit -> (Bit, Bit)
-topEntity = halfAdder
-
-
-
 case_Full_Adder = tt3Helper fullAdder [(0,0),(0,1),(0,1),(1,0),(0,1),(1,0),(1,0),(1,1)]
 
 case_Three_Bit_Adder = do
