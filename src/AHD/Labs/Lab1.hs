@@ -4,17 +4,29 @@ import Clash.Prelude
 
 import AHD.Util
 
+
+-- | A full adder circuit
+--
+-- A full adder implements the following equations:
+-- $$
+-- \begin{aligned}
+-- 	c_{out} &= (c_{in} \wedge (a\oplus b)) \vee (a \wedge b)\\
+-- 	s &= a \oplus b \oplus c_{in}.
+-- \end{aligned}
+-- $
 fullAdder :: Bit -> Bit -> Bit -> (Bit, Bit)
 fullAdder a b cIn = undefined
 
 
 
 
+
+
 -- | A 3-bit adder
 --
--- The adder computes the following sum \(a + b = (a_2 a_1 a_0)_2 + (b_2 b_1 b_0)_2 = (c, s_2, s_1, s_0)\).
+-- The adder computes the following sum \(a + b = (a_2 a_1 a_0)_2 + (b_2 b_1 b_0)_2 = (c, s_2, s_1, s_0)_2\).
 --
--- The order of parameters is chosen so chat calling the functions resembles writing
+-- The order of parameters is chosen so that calling the functions resembles writing
 threeBitAdder ::
   -- |  The bit \(a_2\)
   Bit ->

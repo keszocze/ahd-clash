@@ -88,6 +88,8 @@ library
     AHD
     AHD.Introduction
     AHD.Labs.Lab1
+    AHD.Labs.Lab2
+    AHD.Labs.Lab3
     AHD.Util
     Example.Project
   default-language: Haskell2010
@@ -130,6 +132,8 @@ test-suite test-library
     Tests.Example.Project
     Tests.AHD.Util
     Tests.AHD.Labs.Lab1
+    Tests.AHD.Labs.Lab2
+    Tests.AHD.Labs.Lab3
   build-depends:
     lab-clash,
     QuickCheck,

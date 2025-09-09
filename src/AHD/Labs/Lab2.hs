@@ -24,3 +24,12 @@ nBitAdder a b = cOut :> s
       where
         sFA = a' `xor` b' `xor` cIn'
         cOutFA = (cIn' .&. (a' `xor` b')) .|. (a' .&. b')
+
+
+
+capAt :: Unsigned 8 -> Vec n (Unsigned 8) -> Vec n (Unsigned 8)
+capAt t = map (min t)
+
+
+minMax :: Vec n (Unsigned 8) -> (Unsigned 8, Unsigned 8)
+minMax = foldr (\val (minAcc,maxAcc) -> (min minAcc val, max maxAcc val)) (255, 0)

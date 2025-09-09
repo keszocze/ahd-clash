@@ -1,4 +1,3 @@
-
 build:
 	stack build
 
@@ -11,4 +10,10 @@ test:
 	stack test
 
 test1:
-	stack test --ta '-p Lab1'
+	stack test lab-clash:test:test-library --ta '-p Lab1'
+
+test2:
+	stack test lab-clash:test:test-library --ta '-p Lab2'
+
+test3:
+	stack test lab-clash:test:test-library --ta '-p Lab3'
