@@ -11,8 +11,10 @@ import Test.Tasty.HUnit
 import Test.Tasty.TH
 
 
+case_Full_Adder :: Assertion
 case_Full_Adder = tt3Helper fullAdder [(0,0),(0,1),(0,1),(1,0),(0,1),(1,0),(1,0),(1,1)]
 
+case_Three_Bit_Adder :: Assertion
 case_Three_Bit_Adder = do
   mapM_ assertion inputs
     where

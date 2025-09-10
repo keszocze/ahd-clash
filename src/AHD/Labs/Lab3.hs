@@ -66,3 +66,6 @@ timesTwoPlusThree ::
   -- | The input value times two and then plus three
   Signal System (Unsigned n)
 timesTwoPlusThree s = 2 * s + 3
+
+-- $setup
+-- >>> import Clash.Prelude
