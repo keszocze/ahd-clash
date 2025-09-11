@@ -18,6 +18,8 @@ import Hedgehog ((===))
 import Clash.Hedgehog.Sized.BitVector
 import Clash.Hedgehog.Sized.Signed (genSigned)
 
+import Debug.Trace
+
 
 prop_Tripping_from_Command_to_BitVector_and_back_Addi :: H.Property
 prop_Tripping_from_Command_to_BitVector_and_back_Addi = trippingHelperCmd2BV2CMD Addi
@@ -73,7 +75,7 @@ prop_Parsing__to_NOP_from_garbage_input :: H.Property
 prop_Parsing__to_NOP_from_garbage_input = H.property $ do
   bv <- H.forAll $ genDefinedBitVector @_ @8
   mapM_ (\prefix ->
-      parseCmd (prefix ++# bv) === NOP
+      (parseCmd (prefix ++# bv)) === NOP
     )
     [0b1010 .. 0b111]
 
@@ -81,11 +83,11 @@ trippingHelperBV2Cmd2BV :: BitVector 4 -> H.Property
 trippingHelperBV2Cmd2BV prefix = H.property $ do
   bv <- H.forAll $ genDefinedBitVector @_ @8
   let
-    cmdBV = prefix ++# bv
-    cmdCommand = parseCmd cmdBV
-    packedBV = pack cmdCommand
+    cmdBV =  prefix ++# bv
+    cmdCommand =  parseCmd cmdBV
+    packedBV =  pack cmdCommand
   H.footnote $ show cmdBV <> " -> " <> show cmdCommand <> " -> " <> show packedBV
-  H.assert $ isLike cmdBV packedBV
+  H.assert (isLike cmdBV packedBV)
 
 
 lab5Tests ::  TestTree

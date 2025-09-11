@@ -11,7 +11,6 @@ import Clash.Hedgehog.Sized.Unsigned
 import Clash.Class.Counter
 
 import Test.Tasty
-import Test.Tasty.HUnit
 import Test.Tasty.TH
 import Test.Tasty.Hedgehog
 import qualified Hedgehog as H

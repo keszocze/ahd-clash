@@ -24,7 +24,7 @@ threeBitAdder ::
   Vec 3 Bit ->
   -- | The sum \(a+b\)
   Vec 4 Bit
-threeBitAdder a b = nBitAdder a b
+threeBitAdder a b = undefined
 
 -- | A generic \(n\)-bit adder
 --
@@ -45,19 +45,7 @@ nBitAdder ::
   Vec n Bit ->
   -- | The sum \(a+b\)
   Vec (n + 1) Bit
-nBitAdder a b = cOut :> s
-  where
-    tuples = zip a b
-
-    (cOut, s) = mapAccumR helper 0 tuples
-
-    helper cIn (a', b') = fullAdder a' b' cIn
-
-    fullAdder :: Bit -> Bit -> Bit -> (Bit, Bit)
-    fullAdder a' b' cIn' = (cOutFA, sFA)
-      where
-        sFA = a' `xor` b' `xor` cIn'
-        cOutFA = (cIn' .&. (a' `xor` b')) .|. (a' .&. b')
+nBitAdder a b = undefined
 
 -- | Ensure that values in a vector do not exceed a threshold value \(t\)
 --
@@ -77,7 +65,7 @@ capAt ::
   -- | The vector to cap
   Vec n (Unsigned 8) ->
   Vec n (Unsigned 8)
-capAt t = map (min t)
+capAt t = undefined
 
 -- | Determines the minimal and maximal value in a vector
 --
@@ -99,7 +87,7 @@ minMax ::
   Vec n (Unsigned 8) ->
   -- | The tuple \((\min v, \max v)\)
     (Unsigned 8, Unsigned 8)
-minMax = foldr (\val (minAcc, maxAcc) -> (min minAcc val, max maxAcc val)) (255, 0)
+minMax = undefined
 
 -- $setup
 -- >>> import Clash.Prelude

@@ -19,10 +19,7 @@ delay2 ::
   Signal System (Unsigned 8) ->
   -- | The delayed signal
   Signal System (Unsigned 8)
-delay2 v = v''
-  where
-    v' = register 42 v
-    v'' = register 42 v'
+delay2 v = undefined
 
 -- | Counter counting up to a given value @k@ and then wrapping around
 --
@@ -35,10 +32,7 @@ counter ::
   -- | The upper bound @k@
   Unsigned n ->
   Signal System (Unsigned n)
-counter k = r
-  where
-    r = register 0 (fmap updFun r)
-    updFun v = if v == k then 0 else v + 1
+counter k = undefined
 
 -- | A clock counting in two different bit-widths
 --
@@ -47,9 +41,7 @@ counter k = r
 clock ::
   (HiddenClockResetEnable System, KnownNat n, KnownNat m) =>
   Signal System (Unsigned n, Unsigned m)
-clock = r
-  where
-    r = register (0, 0) (fmap countSucc r)
+clock = undefined
 
 -- | Removes even number by replacing them with @0@
 --
@@ -59,7 +51,7 @@ zeroIfEven ::
   (KnownNat n) =>
   Signal System (Unsigned n) ->
   Signal System (Unsigned n)
-zeroIfEven = fmap (\v -> if even v then 0 else v)
+zeroIfEven vec = undefined
 
 -- | A circuit that takes values \(v\) and computes \(2\cdot v + 3\)
 --
@@ -71,7 +63,7 @@ timesTwoPlusThree ::
   Signal System (Unsigned n) ->
   -- | The input value times two and then plus three
   Signal System (Unsigned n)
-timesTwoPlusThree s = 2 * s + 3
+timesTwoPlusThree s = undefined
 
 -- $setup
 -- >>> import Clash.Prelude

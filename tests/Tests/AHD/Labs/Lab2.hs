@@ -26,7 +26,7 @@ case_Three_Bit_Adder = mapM_ assertion inputs
       range = [0 :: BitVector 3 .. maxBound]
       inputs = [(a,b) | a <- range, b <- range]
 
-      assertion :: (BitVector 3, BitVector 3) -> IO ()
+      assertion :: (BitVector 3, BitVector 3) -> Assertion
       assertion (a, b) = threeBitAdder (bv2v a) (bv2v b) @=? bv2v (a `add` b)
 
 adderTester :: forall n. (KnownNat n) => Assertion
