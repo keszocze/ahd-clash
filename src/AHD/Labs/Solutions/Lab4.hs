@@ -1,4 +1,4 @@
-module AHD.Labs.Lab4 where
+module AHD.Labs.Solutions.Lab4 where
 
 import AHD.Util
 import Clash.Prelude
