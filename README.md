@@ -1,13 +1,15 @@
+
+# Clash Labs for [02201 Agile Hardware Design](https://kurser.dtu.dk/course/02201)
+
+This is the repository to clone in order to do the lab exercises for the 02201 Agile Hardware Design course.
+
+It is based on a Clash template providing the `Example.Project` module with corresponding tests. As the assumption is that attendees of 02201 have never worked with Clash before, the original files have not been removed, as the project, especially the readme, are very educational. You can find the original readme below this text.
+
 <!-- omit in toc -->
 # Simple Starter Project
 This starter project contains the scaffolding needed to integrate Clash with the Cabal and Stack build systems. It allows you to use dependencies from [Hackage](https://hackage.haskell.org/) easily.
 
-
-
-# **This is the `README.md` from the Clash template**
 <!-- omit in toc -->
-
-This content is preserved as it describes the setup of a Chisel project very well. Please note that changes have been made to the template that
 
 # Table of Contents
 - [Getting this project](#getting-this-project)
