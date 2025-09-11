@@ -1,4 +1,14 @@
-module AHD.Util where
+
+
+-- | Utilitiy functions that help evaluating hardware in the REPL/Clashi
+module AHD.Util (
+  -- * Bit-level function helpers
+  eval2, truthTable2, truthTable2', eval3, truthTable3, truthTable3',
+  -- * Mealy machine helpers
+  debugMealy, addDebugInfo,
+  -- * Helpers for simulating sequential hardware
+  prettySampleN, prettySimulateN
+  ) where
 
 import Clash.Prelude
 

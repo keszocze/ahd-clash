@@ -21,8 +21,7 @@ import Hedgehog ((===))
 
 
 case_Three_Bit_Adder :: Assertion
-case_Three_Bit_Adder = do
-  mapM_ assertion inputs
+case_Three_Bit_Adder = mapM_ assertion inputs
     where
       range = [0 :: BitVector 3 .. maxBound]
       inputs = [(a,b) | a <- range, b <- range]
@@ -31,8 +30,7 @@ case_Three_Bit_Adder = do
       assertion (a, b) = threeBitAdder (bv2v a) (bv2v b) @=? bv2v (a `add` b)
 
 adderTester :: forall n. (KnownNat n) => Assertion
-adderTester = do
-  mapM_ assertion inputs
+adderTester = mapM_ assertion inputs
     where
       range = [0 :: BitVector n .. maxBound]
       inputs = [(a,b) | a <- range, b <- range]

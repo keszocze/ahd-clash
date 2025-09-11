@@ -85,7 +85,6 @@ library
   import: common-options
   hs-source-dirs: src
   exposed-modules:
-    AHD
     AHD.Introduction
     AHD.Labs.Lab1
     AHD.Labs.Lab2
@@ -137,6 +136,7 @@ test-suite test-library
     Tests.AHD.Labs.Lab2
     Tests.AHD.Labs.Lab3
     Tests.AHD.Labs.Lab4
+    Tests.AHD.Labs.Lab5
   build-depends:
     lab-clash,
     QuickCheck,

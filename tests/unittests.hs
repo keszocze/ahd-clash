@@ -8,6 +8,7 @@ import qualified Tests.AHD.Labs.Lab1
 import qualified Tests.AHD.Labs.Lab2
 import qualified Tests.AHD.Labs.Lab3
 import qualified Tests.AHD.Labs.Lab4
+import qualified Tests.AHD.Labs.Lab5
 
 import Clash.Prelude
 
@@ -18,6 +19,7 @@ main = defaultMain $ testGroup " AHD Clash Lab"
     Tests.AHD.Labs.Lab1.lab1Tests,
     Tests.AHD.Labs.Lab2.lab2Tests,
     Tests.AHD.Labs.Lab3.lab3Tests,
-    Tests.AHD.Labs.Lab4.lab4Tests
+    Tests.AHD.Labs.Lab4.lab4Tests,
+    Tests.AHD.Labs.Lab5.lab5Tests
   ]
 
