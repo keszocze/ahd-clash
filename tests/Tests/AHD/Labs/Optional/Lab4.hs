@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# LANGUAGE AllowAmbiguousTypes #-}
-module Tests.AHD.Labs.ELab4 where
+module Tests.AHD.Labs.Optional.Lab4 where
 
 import Prelude hiding (foldl, minimum, maximum)
 import Clash.Prelude hiding (not, (||))
@@ -17,9 +17,8 @@ import qualified Hedgehog as H
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 import Hedgehog ((===))
-import Clash.Hedgehog.Sized.BitVector (genBit)
+import Clash.Hedgehog.Sized.BitVector
 
-import Debug.Trace
 
 case_Clock_example :: Assertion
 case_Clock_example = expected @=? result
@@ -30,13 +29,13 @@ case_Clock_example = expected @=? result
 
 prop_Clock_random :: H.Property
 prop_Clock_random = H.property $ do
-  input <- H.forAll $ Gen.list (Range.linear 5 50) genBit
+  input <- H.forAll $ Gen.list (Range.linear 5 50) genDefinedBit
   kUpper <- H.forAll $ genUnsigned (Range.linear 1 15)
   kLower <- H.forAll $ genUnsigned (Range.linear 1 7)
   let
-    simDuration = Prelude.length (traceShowId input)
-    reference = traceShowId $ simulateN simDuration (myclock @4 @3 kUpper $ traceShowId kLower) input
-    result = traceShowId $ simulateN simDuration (clock @4 @3 kUpper $ traceShowId kLower) input
+    simDuration = Prelude.length input
+    reference = simulateN simDuration (myclock @4 @3 kUpper kLower) input
+    result = simulateN simDuration (clock @4 @3 kUpper kLower) input
   result === reference
   where
       mycounter :: (KnownNat n) => Unsigned n -> Unsigned n -> Bit -> (Unsigned n, (Bit, Unsigned n))

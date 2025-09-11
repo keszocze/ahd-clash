@@ -156,7 +156,8 @@ test-suite optional-tests
   main-is: extra.hs
   other-modules:
     Tests.AHD.Util
-    Tests.AHD.Labs.ELab4
+    Tests.AHD.Labs.Optional.Lab4
+    Tests.AHD.Labs.Optional.Lab5
   build-depends:
     lab-clash,
     QuickCheck,

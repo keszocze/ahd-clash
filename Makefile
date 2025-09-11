@@ -22,7 +22,10 @@ test4:
 	stack test lab-clash:test:test-library --ta '-p Lab4'
 
 test4O:
-	stack test lab-clash:test:optional-tests --ta '-p ELab4'
+	stack test lab-clash:test:optional-tests --ta '-p Lab4'
 
 test5:
 	stack test lab-clash:test:test-library --ta '-p Lab5'
+
+test5O:
+	stack test lab-clash:test:optional-tests --ta '-p Lab5'
