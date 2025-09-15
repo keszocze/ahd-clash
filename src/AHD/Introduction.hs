@@ -2,6 +2,8 @@
 -- | Module collecting examples and code from the AHD Clash lecture.
 module AHD.Introduction where
 
+import AHD.Util
+
 import Clash.Prelude
 
 -- | A half adder circuit
@@ -28,7 +30,5 @@ halfAdder a b = (cOut, s)
 
 -- | The function that will be synthesized to Verilog/VHDL
 --
--- Let this function point to what you implemented. Note that you might need to change the
--- signature for this to work.
-topEntity :: Bit -> Bit -> (Bit, Bit)
+-- Let this function point to what you implemented.
 topEntity = halfAdder
