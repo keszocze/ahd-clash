@@ -46,7 +46,7 @@ alu ::
   Command ->
   -- | The updated accumulator value
   Accumulator
-alu acc Add = undefined
+alu acc cmd = undefined
 
 -- | The accumulator machine
 --
