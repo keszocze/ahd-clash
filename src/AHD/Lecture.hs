@@ -52,23 +52,45 @@ fourWayMuxDirect 3 _ _ _ d = d
 fourWayMuxVec :: Unsigned 2 -> Vec 4 a -> a
 fourWayMuxVec idx values = values !! idx
 
-{-# ANN  namedTopEntity  ( Synthesize
+{-# ANN
+  namedTopEntity
+  ( Synthesize
       { t_name = "half_hadder",
-        t_inputs = [ PortName "a",
-                PortName "b" ] ,
-        t_output = PortProduct "TheSum"
+        t_inputs =
+          [ PortName "a",
+            PortName "b"
+          ],
+        t_output =
+          PortProduct
+            "TheSum"
             [ PortName "c_out",
-              PortName "s" ]
-      } ) #-}
+              PortName "s"
+            ]
+      }
+  )
+  #-}
 namedTopEntity :: Bit -> Bit -> (Bit, Bit)
 namedTopEntity a b = halfAdder a b
 
-
 cnt :: (HiddenClockResetEnable System) => Signal System (Unsigned 4)
 cnt = theCount
-  where theCount = register 0 (theCount + 1)
-
+  where
+    theCount = register 0 (theCount + 1)
 
 fmapCntStep :: (HiddenClockResetEnable System) => Unsigned 3 -> Signal System (Unsigned 3)
 fmapCntStep step = theCount
-  where theCount = register 0 (fmap (\c -> c + step) theCount)
+  where
+    theCount = register 0 (fmap (\c -> c + step) theCount)
+
+oneHotCounter :: (HiddenClockResetEnable System) => Signal System (BitVector 4)
+oneHotCounter = theCount
+  where
+    theCount = register 0b0001 (fmap (\c -> rotateL c 1) theCount)
+
+seqDoubler :: Signal System (Unsigned 8) -> Signal System (Unsigned 8)
+seqDoubler a = 2 * a
+
+seqHalfAdder :: (HiddenClockResetEnable System) => Signal System Bit -> Signal System Bit -> Signal System (Bit, Bit)
+seqHalfAdder a b = halfAdder <$>  a <*> b
+
+

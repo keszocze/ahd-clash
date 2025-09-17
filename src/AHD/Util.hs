@@ -7,7 +7,7 @@ module AHD.Util (
   -- * Mealy machine helpers
   debugMealy, addDebugInfo,
   -- * Helpers for simulating sequential hardware
-  prettySampleN, prettySimulateN
+  prettySampleN, prettySimulateN, tuple2, tuple3
   ) where
 
 import Clash.Prelude
@@ -146,6 +146,18 @@ prettySampleN ::
   ((HiddenClockResetEnable dom) => Signal dom a) ->
   IO ()
 prettySampleN n f = mapM_ print $ sampleN n f
+
+
+-- | Converts a function expecting two inputs into one expecting one two-tuple instead.
+tuple2 :: (Signal System a -> Signal System b -> Signal System c) -> Signal System (a, b) -> Signal System c
+tuple2 f vals = (uncurry f) (unbundle vals)
+
+-- | Converts a function expecting three inputs into one expecting one three-tuple instead.
+tuple3 :: (Signal System a -> Signal System b -> Signal System c -> Signal System d) -> Signal System (a, b, c) -> Signal System d
+tuple3 f vals = f a b c
+  where
+    (a, b, c) = unbundle vals
+
 
 -- $setup
 -- >>> import Clash.Prelude
