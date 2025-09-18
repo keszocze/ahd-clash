@@ -138,7 +138,8 @@ checkAC n input expected = result @?= expected
     result = sampleN n (accMachine input')
     input' = mkCmds input
 
--- TODO mehr Testfälle hinzufügen
+-- TODO add more test cases (will do that at some point)
+-- If you are doing the exercises and come up with nice test cases, please send them to me!
 
 case_Example_from_the_Testing_the_machine_section :: Assertion
 case_Example_from_the_Testing_the_machine_section =
