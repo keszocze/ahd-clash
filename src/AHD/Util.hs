@@ -7,7 +7,7 @@ module AHD.Util (
   -- * Mealy machine helpers
   debugMealy, addDebugInfo,
   -- * Helpers for simulating sequential hardware
-  prettySampleN, prettySimulateN, tuple2, tuple3, bitInputs2, bitInputs3
+  prettySampleN, prettySimulateN, seqEval2, seqEval3, tuple2, tuple3, bitInputs2, bitInputs3
   ) where
 
 import Clash.Prelude
@@ -160,13 +160,72 @@ tuple3 f vals = f a b c
     (a, b, c) = unbundle vals
 
 
+-- | Generates the usual combinations of two Bit inputs
+--
+-- > clashi> prettySampleN 10 bitInputs2
+-- > (0,0)
+-- > (0,0)
+-- > (0,1)
+-- > (1,0)
+-- > (1,1)
+-- > (0,0)
+-- > (0,1)
+-- > (1,0)
+-- > (1,1)
+-- > (0,0)
 bitInputs2 :: SystemClockResetEnable => Signal System (Bit,Bit)
 bitInputs2 = fmap bitCoerce r
   where r = register (0 :: Unsigned 1, 0 :: Unsigned 1) (fmap countSucc r)
 
+
+
+-- | Generates the usual combinations of three Bit inputs
+--
+-- > clashi> prettySampleN 12 bitInputs3
+-- > (0,0,0)
+-- > (0,0,0)
+-- > (0,0,1)
+-- > (0,1,0)
+-- > (0,1,1)
+-- > (1,0,0)
+-- > (1,0,1)
+-- > (1,1,0)
+-- > (1,1,1)
+-- > (0,0,0)
+-- > (0,0,1)
+-- > (0,1,0)
 bitInputs3 :: SystemClockResetEnable => Signal System (Bit,Bit, Bit)
 bitInputs3 = fmap bitCoerce r
   where r = register (0 :: Unsigned 1, 0 :: Unsigned 1, 0 :: Unsigned 1) (fmap countSucc r)
+
+-- | Evaluate a two-input sequental function
+--
+-- > clashi> prettySampleN 5 (seqEval2 (liftA2 xor))
+-- > 0
+-- > 0
+-- > 1
+-- > 1
+-- > 0
+seqEval2 :: SystemClockResetEnable => (Signal System Bit -> Signal System Bit -> Signal System c) -> Signal System c
+seqEval2 f = tuple2 f bitInputs2
+
+-- | Evaluate a three-input sequental function
+--
+-- > clashi> cout a b cIn  = (cIn .&. (a `xor` b)) .|. (a .&. b)
+-- > clashi> prettySampleN 10 (seqEval3 (liftA3 cout))
+-- > 0
+-- > 0
+-- > 0
+-- > 0
+-- > 1
+-- > 0
+-- > 1
+-- > 1
+-- > 1
+-- > 0
+
+seqEval3 :: SystemClockResetEnable => (Signal System Bit  -> Signal System Bit -> Signal System Bit -> Signal System d) -> Signal System d
+seqEval3 f = tuple3 f bitInputs3
 
 -- $setup
 -- >>> import Clash.Prelude

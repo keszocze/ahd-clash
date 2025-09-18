@@ -6,6 +6,9 @@ clean:
 
 all: build test
 
+testUtil:
+	stack test lab-clash:test:test-library --ta '-p Util'
+
 testLecture:
 	stack test lab-clash:test:test-library --ta '-p Lecture'
 

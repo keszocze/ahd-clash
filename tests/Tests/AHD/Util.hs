@@ -6,7 +6,7 @@ import Test.Tasty
 import Test.Tasty.HUnit
 import Test.Tasty.TH
 
-import Clash.Prelude
+import Clash.Prelude hiding (drop)
 
 import AHD.Util
 
@@ -29,7 +29,17 @@ case_tt2Xor = tt2Helper xor [0,1,1,0]
 case_tt2Or :: Assertion
 case_tt2Or = tt2Helper (.|.) [0,1,1,1]
 
+case_Generating_all_TwoBit_inputs :: Assertion
+case_Generating_all_TwoBit_inputs = do
+  let vals = drop 1 $ sampleN 9 bitInputs2
+      expected = [(0,0), (0,1), (1,0), (1,1), (0,0), (0,1), (1,0), (1,1)]
+  vals @?= expected
 
+case_Generating_all_ThreeBit_inputs :: Assertion
+case_Generating_all_ThreeBit_inputs = do
+  let vals = drop 1 $ sampleN 9 bitInputs3
+      expected = [(0,0,0), (0,0,1), (0,1,0), (0,1,1), (1,0,0), (1,0,1), (1,1,0), (1,1,1)]
+  vals @?= expected
 
 fullAdder :: Bit -> Bit -> Bit -> (Bit, Bit)
 fullAdder a b cIn = (cOut, s)
@@ -46,6 +56,14 @@ case_tt3SomeFun = tt3Helper (\a b c -> (a `xor` b) .|. c) [0,1,1,1,1,1,0,1]
 
 utilTests :: TestTree
 utilTests = $(testGroupGenerator)
+
+case_seqEval2_works_for_XOR :: Assertion
+case_seqEval2_works_for_XOR = sampleN 8 (seqEval2 $ liftA2 xor) @?=  [0,0,1,1,0,0,1,1]
+
+case_seqEval3_works_for_CarryOut_computation :: Assertion
+case_seqEval3_works_for_CarryOut_computation =
+  sampleN 10 (seqEval3 $ liftA3 cOut) @?= [0,0,0,0,1,0,1,1,1,0]
+    where cOut a b cIn  = (cIn .&. (a `xor` b)) .|. (a .&. b)
 
 main :: IO ()
 main = defaultMain utilTests

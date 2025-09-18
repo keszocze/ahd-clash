@@ -2,6 +2,7 @@
 {-# LANGUAGE ViewPatterns #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
+-- | Module to implement the solutions to the fifth lab in
 module AHD.Labs.Lab5 where
 
 import AHD.Util
@@ -15,6 +16,7 @@ type Accumulator = Signed 8
 -- We only support programs with a lenght of up to 64
 type PC = Unsigned 6
 
+-- | The commands the accumulator machine can carry out
 data Command
   = -- | Add the accumulator to itself
     Add

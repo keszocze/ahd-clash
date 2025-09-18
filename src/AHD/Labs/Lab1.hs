@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -Wno-unused-imports #-}
-
+-- | Module to implement the solutions to the first lab in
 module AHD.Labs.Lab1 where
 
 -- intentionally imported so that one can use the helper function from clashi
