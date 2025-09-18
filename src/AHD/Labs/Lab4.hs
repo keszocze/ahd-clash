@@ -1,3 +1,4 @@
+-- | Module to implement the solutions to the fourth lab in
 module AHD.Labs.Lab4 where
 
 import AHD.Util

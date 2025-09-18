@@ -1,4 +1,6 @@
 {-# OPTIONS_GHC -Wno-unused-imports #-}
+
+-- | Module to implement the solutions to the third lab in
 module AHD.Labs.Lab3 where
 
 
