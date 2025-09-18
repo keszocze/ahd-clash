@@ -40,7 +40,7 @@ prop_Three_counter_random = H.property $ do
     mythreeCounter' cnt input = (cnt', resize $ cnt' `mod` 5)
       where cnt' = if input == 3 then cnt + 1 else cnt
 
-    mythreeCounter :: (HiddenClockResetEnable System) => Signal System (Unsigned 2) -> Signal System (Unsigned 3)
+    mythreeCounter :: SystemClockResetEnable => Signal System (Unsigned 2) -> Signal System (Unsigned 3)
     mythreeCounter = mealy mythreeCounter' 0
 
 lab4Tests ::  TestTree

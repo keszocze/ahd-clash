@@ -52,7 +52,7 @@ alu acc cmd = undefined
 --
 -- It is parameterized with the read-only memory for the program
 accMachine ::
-  (HiddenClockResetEnable System) =>
+  SystemClockResetEnable =>
   -- | The read-only program
   Vec 64 Command ->
   -- | Output tuple consisting of
@@ -64,7 +64,7 @@ accMachine ::
 accMachine cmds = undefined
 
 -- | The accumulator machine that only outputs the accumulator values
-accMachine' :: (HiddenClockResetEnable System) => Vec 64 Command -> Signal System Accumulator
+accMachine' :: SystemClockResetEnable => Vec 64 Command -> Signal System Accumulator
 accMachine' cmds = fmap (\(a, _, _) -> a) (accMachine cmds)
 
 -- | Creates a read-only program vector by appending `NOP`s

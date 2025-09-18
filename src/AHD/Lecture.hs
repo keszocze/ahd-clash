@@ -4,6 +4,7 @@ module AHD.Lecture where
 import AHD.Util
 import Clash.Prelude
 
+
 -- | A half adder circuit
 --
 -- The half adder computes the equations
@@ -69,20 +70,25 @@ fourWayMuxVec idx values = values !! idx
       }
   )
   #-}
+-- | A top entity for the half adder that clearly specifies how to name the inputs and outputs
+--
+-- Synthesize this via
+--
+-- > stack run clash -- src/AHD/Lecture.hs --verilog -main-is namedTopEntity
 namedTopEntity :: Bit -> Bit -> (Bit, Bit)
 namedTopEntity a b = halfAdder a b
 
-cnt :: (HiddenClockResetEnable System) => Signal System (Unsigned 4)
+cnt :: SystemClockResetEnable => Signal System (Unsigned 4)
 cnt = theCount
   where
     theCount = register 0 (theCount + 1)
 
-fmapCntStep :: (HiddenClockResetEnable System) => Unsigned 3 -> Signal System (Unsigned 3)
+fmapCntStep :: SystemClockResetEnable => Unsigned 3 -> Signal System (Unsigned 3)
 fmapCntStep step = theCount
   where
     theCount = register 0 (fmap (\c -> c + step) theCount)
 
-oneHotCounter :: (HiddenClockResetEnable System) => Signal System (BitVector 4)
+oneHotCounter :: SystemClockResetEnable => Signal System (BitVector 4)
 oneHotCounter = theCount
   where
     theCount = register 0b0001 (fmap (\c -> rotateL c 1) theCount)
@@ -90,7 +96,23 @@ oneHotCounter = theCount
 seqDoubler :: Signal System (Unsigned 8) -> Signal System (Unsigned 8)
 seqDoubler a = 2 * a
 
-seqHalfAdder :: (HiddenClockResetEnable System) => Signal System Bit -> Signal System Bit -> Signal System (Bit, Bit)
-seqHalfAdder a b = halfAdder <$>  a <*> b
+seqHalfAdder :: SystemClockResetEnable => Signal System Bit -> Signal System Bit -> Signal System (Bit, Bit)
+seqHalfAdder a b = halfAdder <$> a <*> b
+
+
+myReg :: SystemClockResetEnable => Signal System (Unsigned 4)
+myReg = register 3 (pure 4)
+
+
+parity :: Bool -> Bit -> (Bool, Bool)
+parity p i = (p',p')
+  where p' = if i == 1 then not p else p
+
+parityMealy :: SystemClockResetEnable =>
+  Signal System Bit -> Signal System Bool
+parityMealy = mealy parity False
+
+
+
 
 

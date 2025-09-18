@@ -46,15 +46,15 @@ prop_Clock_random = H.property $ do
         where
             (advanceNext, s')  = if s == k then (1,0) else (0,s+1)
 
-      mylowerClock :: (HiddenClockResetEnable System, KnownNat m) => Unsigned m -> Signal System Bit -> Signal System (Bit, Unsigned m)
+      mylowerClock :: (SystemClockResetEnable, KnownNat m) => Unsigned m -> Signal System Bit -> Signal System (Bit, Unsigned m)
       mylowerClock k = mealy @System (mycounter k) 0
 
 
-      myupperClock :: (HiddenClockResetEnable System, KnownNat n) => Unsigned n -> Signal System Bit -> Signal System (Bit, Unsigned n)
+      myupperClock :: (SystemClockResetEnable, KnownNat n) => Unsigned n -> Signal System Bit -> Signal System (Bit, Unsigned n)
       myupperClock k = mealy @System (mycounter k) 0
 
 
-      myclock :: (HiddenClockResetEnable System, KnownNat n, KnownNat m) => Unsigned n -> Unsigned m -> Signal System Bit -> Signal System (Unsigned n, Unsigned m)
+      myclock :: (SystemClockResetEnable, KnownNat n, KnownNat m) => Unsigned n -> Unsigned m -> Signal System Bit -> Signal System (Unsigned n, Unsigned m)
       myclock kUpper kLower i = bundle (lClock, rClock)
             where
                   (wrap,rClock) = unbundle $ (mylowerClock kLower) i

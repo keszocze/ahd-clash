@@ -11,12 +11,12 @@ threeCounter' :: Unsigned 8 -> Unsigned 2 -> (Unsigned 8, Unsigned 3)
 threeCounter' cnt input = undefined
 
 -- | Sequential circuit counting how often the value @3@ was input modulo @5@
-threeCounter :: (HiddenClockResetEnable System) => Signal System (Unsigned 2) -> Signal System (Unsigned 3)
+threeCounter :: SystemClockResetEnable => Signal System (Unsigned 2) -> Signal System (Unsigned 3)
 threeCounter = mealy threeCounter' 0
 
 
 -- | Sequential circuit counting how often the value @3@ was input modulo @5@ providing additional debug output
-threeCounterDebug :: (HiddenClockResetEnable System) =>
+threeCounterDebug :: SystemClockResetEnable =>
       Signal System (Unsigned 2) ->
       -- | Tuple consisting of
       --
@@ -34,13 +34,13 @@ counter :: (KnownNat n) => Unsigned n -> Unsigned n -> Bit -> (Unsigned n, (Bit,
 counter k s advance = undefined
 
 -- | Optional
-lowerClock :: (HiddenClockResetEnable System, KnownNat m) => Unsigned m -> Signal System Bit -> Signal System (Bit, Unsigned m)
+lowerClock :: (SystemClockResetEnable, KnownNat m) => Unsigned m -> Signal System Bit -> Signal System (Bit, Unsigned m)
 lowerClock k = undefined
 
 -- | Optional
-upperClock :: (HiddenClockResetEnable System, KnownNat n) => Unsigned n -> Signal System Bit -> Signal System (Bit, Unsigned n)
+upperClock :: (SystemClockResetEnable, KnownNat n) => Unsigned n -> Signal System Bit -> Signal System (Bit, Unsigned n)
 upperClock k = undefined
 
 -- | Optional
-clock :: (HiddenClockResetEnable System, KnownNat n, KnownNat m) => Unsigned n -> Unsigned m -> Signal System Bit -> Signal System (Unsigned n, Unsigned m)
+clock :: (SystemClockResetEnable, KnownNat n, KnownNat m) => Unsigned n -> Unsigned m -> Signal System Bit -> Signal System (Unsigned n, Unsigned m)
 clock kUpper kLower i = undefined
