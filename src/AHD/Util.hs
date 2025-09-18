@@ -7,7 +7,7 @@ module AHD.Util (
   -- * Mealy machine helpers
   debugMealy, addDebugInfo,
   -- * Helpers for simulating sequential hardware
-  prettySampleN, prettySimulateN, tuple2, tuple3, bitInputs2, bitInputs3
+  prettySampleN, prettySimulateN, seqEval2, seqEval3, tuple2, tuple3, bitInputs2, bitInputs3
   ) where
 
 import Clash.Prelude
@@ -167,6 +167,13 @@ bitInputs2 = fmap bitCoerce r
 bitInputs3 :: SystemClockResetEnable => Signal System (Bit,Bit, Bit)
 bitInputs3 = fmap bitCoerce r
   where r = register (0 :: Unsigned 1, 0 :: Unsigned 1, 0 :: Unsigned 1) (fmap countSucc r)
+
+
+seqEval2 :: SystemClockResetEnable => (Signal System Bit -> Signal System Bit -> Signal System c) -> Signal System c
+seqEval2 f = tuple2 f bitInputs2
+
+seqEval3 :: SystemClockResetEnable => (Signal System Bit  -> Signal System Bit -> Signal System Bit -> Signal System d) -> Signal System d
+seqEval3 f = tuple3 f bitInputs3
 
 -- $setup
 -- >>> import Clash.Prelude
