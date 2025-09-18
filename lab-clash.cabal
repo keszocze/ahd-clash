@@ -111,6 +111,16 @@ executable clashi
     ghc-options: -dynamic
   build-depends: base, clash-ghc, lab-clash
 
+
+-- Builds the executable 'dumpVCD', with lab-clash project in scope
+executable dumpVCD
+  import: common-options
+  main-is: bin/DumpVCD.hs
+  default-language: Haskell2010
+  Build-Depends: base, clash-ghc, lab-clash, text
+  if !os(Windows)
+    ghc-options: -dynamic
+
 test-suite doctests
   type:             exitcode-stdio-1.0
   default-language: Haskell2010

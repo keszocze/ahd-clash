@@ -7,10 +7,11 @@ module AHD.Util (
   -- * Mealy machine helpers
   debugMealy, addDebugInfo,
   -- * Helpers for simulating sequential hardware
-  prettySampleN, prettySimulateN, tuple2, tuple3
+  prettySampleN, prettySimulateN, tuple2, tuple3, bitInputs2, bitInputs3
   ) where
 
 import Clash.Prelude
+import Clash.Class.Counter
 
 -- | Creates the truth table for a 2-bit `Bit`-function
 --
@@ -158,6 +159,14 @@ tuple3 f vals = f a b c
   where
     (a, b, c) = unbundle vals
 
+
+bitInputs2 :: SystemClockResetEnable => Signal System (Bit,Bit)
+bitInputs2 = fmap bitCoerce r
+  where r = register (0 :: Unsigned 1, 0 :: Unsigned 1) (fmap countSucc r)
+
+bitInputs3 :: SystemClockResetEnable => Signal System (Bit,Bit, Bit)
+bitInputs3 = fmap bitCoerce r
+  where r = register (0 :: Unsigned 1, 0 :: Unsigned 1, 0 :: Unsigned 1) (fmap countSucc r)
 
 -- $setup
 -- >>> import Clash.Prelude

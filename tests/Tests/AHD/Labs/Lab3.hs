@@ -29,7 +29,7 @@ prop_Delay = H.property $ do
       reference = simulateN simDuration myDelay2 input
   result === reference
     where
-      myDelay2 :: (HiddenClockResetEnable System) => Signal System (Unsigned 8) -> Signal System (Unsigned 8)
+      myDelay2 :: SystemClockResetEnable => Signal System (Unsigned 8) -> Signal System (Unsigned 8)
       myDelay2 v = v''
         where
           v' = register 42 v
@@ -71,7 +71,7 @@ testClock = H.property $ do
     reference = sampleN simDuration myClock
   result === reference
     where
-      myClock :: (HiddenClockResetEnable System, KnownNat n, KnownNat m) =>  Signal System (Unsigned n, Unsigned m)
+      myClock :: (SystemClockResetEnable, KnownNat n, KnownNat m) =>  Signal System (Unsigned n, Unsigned m)
       myClock = r
         where
           r = register (0, 0) (fmap countSucc r)
