@@ -14,7 +14,7 @@ import Clash.Prelude
 -- > [42,42,1,2,3,4,5,6,7,8]
 delay2 ::
   -- Constraint to tell `register` that it has clock/reset/enable signals
-  (HiddenClockResetEnable System) =>
+  SystemClockResetEnable =>
   -- | The signal to delay
   Signal System (Unsigned 8) ->
   -- | The delayed signal
@@ -29,7 +29,7 @@ delay2 v = v''
 -- > clashi> sampleN 10 (counter @3 2)
 -- > [0,0,1,2,0,1,2,0,1,2]
 counter ::
-  ( HiddenClockResetEnable System,
+  ( SystemClockResetEnable,
     KnownNat n
   ) =>
   -- | The upper bound @k@
@@ -45,7 +45,7 @@ counter k = r
 -- > clashi> sampleN 10 (clock @3 @2)
 -- > [(0,0),(0,0),(0,1),(0,2),(0,3),(1,0),(1,1),(1,2),(1,3),(2,0)]
 clock ::
-  (HiddenClockResetEnable System, KnownNat n, KnownNat m) =>
+  (SystemClockResetEnable, KnownNat n, KnownNat m) =>
   Signal System (Unsigned n, Unsigned m)
 clock = r
   where
