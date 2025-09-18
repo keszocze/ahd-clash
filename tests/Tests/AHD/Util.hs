@@ -57,5 +57,13 @@ case_tt3SomeFun = tt3Helper (\a b c -> (a `xor` b) .|. c) [0,1,1,1,1,1,0,1]
 utilTests :: TestTree
 utilTests = $(testGroupGenerator)
 
+case_seqEval2_works_for_XOR :: Assertion
+case_seqEval2_works_for_XOR = sampleN 8 (seqEval2 $ liftA2 xor) @?=  [0,0,1,1,0,0,1,1]
+
+case_seqEval3_works_for_CarryOut_computation :: Assertion
+case_seqEval3_works_for_CarryOut_computation =
+  sampleN 10 (seqEval3 $ liftA3 cOut) @?= [0,0,0,0,1,0,1,1,1,0]
+    where cOut a b cIn  = (cIn .&. (a `xor` b)) .|. (a .&. b)
+
 main :: IO ()
 main = defaultMain utilTests
