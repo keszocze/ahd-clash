@@ -33,7 +33,23 @@ halfAdder a b = (cOut, s)
 -- | The function that will be synthesized to Verilog/VHDL
 --
 -- Let this function point to what you implemented.
-topEntity = halfAdder
+topEntity :: Bit -> Bit -> (Bit, Bit)
+topEntity a b = (c_out, s)
+  where
+    c_out = a .&. b
+    s = xor a b
+
+
+data Color  = Red | Orange | Green deriving (Show, Eq, Generic, NFDataX, BitPack)
+
+traffic :: Color -> Bit -> (Color, Color)
+traffic Red _ = (Orange, Orange)
+traffic Orange _ = (Green, Green)
+traffic Green 1 = (Red, Red)
+traffic Green 0 = (Green, Green)
+
+simpleROM :: Vec 4 (Unsigned 8) -> Unsigned 2 -> Unsigned 8
+simpleROM vals idx = vals !! idx
 
 -- | A simple multiplexer
 --
@@ -46,7 +62,7 @@ myMux False a _ = a
 myMux True _ b = b
 
 -- | A four-way multiplexer with a *direct* implementation
-fourWayMuxDirect :: Unsigned 2 -> a -> a -> a -> a -> a
+fourWayMuxDirect :: Unsigned 2 -> x -> x -> x -> x -> x
 fourWayMuxDirect 0 a _ _ _ = a
 fourWayMuxDirect 1 _ b _ _ = b
 fourWayMuxDirect 2 _ _ c _ = c
